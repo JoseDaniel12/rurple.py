@@ -28,10 +28,13 @@ class Mapa(object):
 			robotp=Robot(self.robot.x, self.robot.y, self.robot.direccion)
 			robotp.move()
 			permiso_move=True
-			if robotp.x<=self.ancho and robotp.x>=0 and robotp.y<self.ancho and robotp.y>=0:
+			if robotp.x<self.ancho and robotp.x>=0 and robotp.y<self.alto and robotp.y>=0:
 				for i in self.paredes:
 					if i.x==robotp.x and i.y==robotp.y:
 						permiso_move=False
+			else:
+				permiso_move=False
+
 			if permiso_move:
 				self.robot.move()
 
@@ -49,7 +52,7 @@ class Mapa(object):
 		impresion=""
 		impresion+="  "+"─"*self.ancho+"\n"
 		for y in range(self.alto):
-			impresion+=" |"
+			impresion+=" | "
 			for x in range(self.ancho):
 				pared=False
 				pila=False
@@ -70,7 +73,7 @@ class Mapa(object):
 					if pared==False and pila==False:
 						impresion+=" "
 
-			impresion+=" |"+"\n"
+			impresion+="|"+"\n"
 		impresion+="  "+"─"*self.ancho+"\n"
 		impresion+="  Fichas recogidas: "+str(self.robot.cantidad_monedas)+"\n"
 		return impresion
